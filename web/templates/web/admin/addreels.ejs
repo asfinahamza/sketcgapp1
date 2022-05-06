@@ -1,0 +1,154 @@
+{%extends 'web/dbase.ejs'%} {%load static%} {%block headers%} {%endblock%} {%block body%}
+
+<!-- Page Content  -->
+<div id="content-page" class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="iq-card">
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Add Reels</h4>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
+                        <form action="#" id="fileUploadForm" method="POST">
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <div class="row">
+                                        <div class="col-12 form-group">
+                                            <input type="text" name="name" class="form-control" id="MovieTitle" placeholder="Title">
+                                        </div>
+
+                                        <div class="col-12 form-group">
+                                            <label id="gallery2" for="form_gallery-upload">Upload Image</label>
+                                            <input name="image" id="MovieImage" class="form-control" type="file" accept=".png, .jpg, .jpeg">
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-12 form-group">
+                                        <textarea id="MovieDesc" name="content" rows="5" class="form-control" placeholder="Description"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="d-block position-relative">
+                                    <div class="form_video-upload">
+                                        <input type="file" id="MovieVideo" name="video" accept="video/mp4,video/x-m4v,video/*" multiple>
+                                        <p>Upload video</p>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 form-group ">
+                            <button id="btnSubmit" class="btn btn-primary">Submit</button>
+                            <button type="reset" class="btn btn-danger">cancel</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+
+<!--Video Upload with Progress Ajax-->
+<script>
+    $(document).ready(function() {
+        $("#btnSubmit").click(function(event) {
+            event.preventDefault();
+            var form = $('#fileUploadForm')[0];
+            var data = new FormData(form);
+            var token = '{{csrf_token}}';
+            data.append("data.object", "data.all.form");
+
+            //Validation
+            var name = $('#MovieTitle').val();
+            if (name.length < 1) {
+                Swal.fire("Error", 'Title-field is empty.', "error");
+                $("#btnSubmit").prop("enabled", true);
+                return false;
+            }
+            var desc = $('#MovieDesc').val();
+            if (desc.length < 1) {
+                Swal.fire("Error", 'Description-field is empty.', "error");
+                $("#btnSubmit").prop("enabled", true);
+                return false;
+            }
+            var video = $('#MovieVideo').val();
+            if (video.length < 1) {
+                Swal.fire("Error", 'Video-field is empty.', "error");
+                $("#btnSubmit").prop("enabled", true);
+                return false;
+            }
+            var image = $('#MovieImage').val();
+            if (image.length < 1) {
+                Swal.fire("Error", 'Image-field is empty.', "error");
+                $("#btnSubmit").prop("enabled", true);
+                return false;
+            }
+
+
+            $("#btnSubmit").prop("disabled", true);
+
+            var urlId = window.location.pathname.split('/')[1]
+            var PostUrl;
+            if (urlId == 0) {
+                PostUrl = '/0/addMovieReels'
+            } else {
+                PostUrl = '/' + urlId + '/addMovieReels';
+            }
+
+            $.ajax({
+                headers: {
+                    "X-CSRFToken": token
+                },
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: PostUrl,
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                async: true,
+                xhr: function() {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function(evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = (evt.loaded / evt.total) * 100;
+                            console.log("Uploading...");
+                            $('div.progress > div.progress-bar').css({
+                                "width": percentComplete + "%"
+                            });
+                        }
+                    }, false);
+                    return xhr;
+                },
+                success: function(data) {
+                    $("#result").text(data);
+                    console.log("SUCCESS : ", data);
+                    $("#btnSubmit").prop("disabled", false);
+                    window.location.href = "/reelslist";
+                },
+                error: function(e) {
+                    $("#result").text(e.responseText);
+                    console.log("ERROR : ", e);
+                    $("#btnSubmit").prop("enabled", false);
+                }
+            });
+        });
+    });
+</script>
+
+{%endblock%}

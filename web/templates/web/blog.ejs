@@ -1,0 +1,79 @@
+{%extends 'web/hbase.ejs'%} {%load static%} {%block headers%} {%endblock%} {%block body%}
+
+<!-- Header End -->
+<div class="iq-breadcrumb-one  iq-bg-over iq-over-dark-50" style="background-image: url(/static/web/play/images/about-us/01.jpg);">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <nav aria-label="breadcrumb" class="text-center iq-breadcrumb-two">
+                    <h2 class="title">Blog</h2>
+                    <ol class="breadcrumb main-bg">
+                        <li class="breadcrumb-item"><a href="">Home</a></li>
+                        <li class="breadcrumb-item active">Blog</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main container -->
+
+<main id="main" class="site-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="row" id="BlogListView"></div>
+
+
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Main container end -->
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+<script>
+    $(document).ready(function() {
+
+        var video = " ";
+        var page = 1;
+
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: "/BlogListView" + "?format=json&page=" + page,
+            success: function(data) {
+                console.log(data);
+                for (i = 0; i < data.results.length; i++) {
+                    var pathID = data.results[i].id;
+                    var image = data.results[i].image;
+                    var title = data.results[i].title;
+                    var pathUrl = "/" + pathID + "/blogDetail";
+
+                    video +=
+                        '<div class="col-md-4">' +
+                        '<a href="' + pathUrl + '"> <div class="img-box">' +
+                        '<img src=' + image + ' class="img-fluid" alt="">' +
+                        '</div>' +
+                        '<div class="block-description">' +
+                        '</div></a>' +
+                        '<h6 class="iq-title"><a href="#">' + title + '</a></h6>' +
+                        '</div>'
+
+                }
+                document.getElementById("BlogListView").innerHTML = video;
+                console.log(data);
+                console.log("success!");
+            }
+        });
+    });
+</script>
+
+
+{%endblock%}

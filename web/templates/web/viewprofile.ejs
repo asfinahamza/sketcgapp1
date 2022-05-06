@@ -1,0 +1,47 @@
+{%extends 'web/hbase.ejs'%} {%load static%} {%block headers%} {%endblock%} {%block body%}
+
+<!-- MainContent -->
+<section class="m-profile manage-p">
+    <div class="container h-100">
+        <div class="row align-items-center justify-content-center h-100">
+            <div class="col-lg-10">
+                <div class="sign-user_card">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="upload_profile d-inline-block">
+                                {% if profile.image  %}
+                                <img src="{{profile.image.url}}" class="profile-pic rounded-circle img-fluid" alt="user">
+                                {% endif %}
+                                <div class="p-image">
+                                    <i class="ri-pencil-line upload-button"></i>
+                                    <input class="file-upload" type="file" accept="image/*" name="image">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 device-margin">
+                            <div class="profile-from">
+                                <h4 class="mb-3">Profile</h4>
+                                    <table>
+                                        <tr>
+                                            <td>Name:</td>
+                                            <td>{{profile.name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contact:</td>
+                                            <td>{{profile.phone}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email:</td>
+                                            <td>{{profile.email}}</td>
+                                        </tr>
+                                    </table>
+                                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{%endblock%}

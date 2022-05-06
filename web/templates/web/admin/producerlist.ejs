@@ -1,0 +1,63 @@
+{%extends 'web/dbase.ejs'%} {%load static%} {%block headers%} {%endblock%} {%block body%}
+<!-- Page Content  -->
+<div id="content-page" class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="iq-card">
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Producer Lists</h4>
+                        </div>
+                        <div class="iq-card-header-toolbar d-flex align-items-center">
+                            <a href="/0/addproducer" class="btn btn-primary">Add Producer</a>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
+                        <div class="table-view">
+                            <table class="data-tables table movie_table " style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Movie</th>
+                                        <th>Name</th>
+                                        <th>Company</th>
+                                        <th>Phone</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for producer in producer %}
+                                    <tr>
+                                        <td>
+                                            <div class="media align-items-center">
+                                                <div class="iq-movie">
+                                                    <a href="javascript:void(0);"><img src="{{producer.image.url}}" class="img-border-radius avatar-40 img-fluid" alt=""></a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{{producer.name}}</td>
+                                        <td>{{producer.company}}</td>
+                                        <td>{{producer.phone}}</td>
+
+                                        <td>
+                                            <div class="flex align-items-center list-user-action">
+                                                <a class="iq-bg-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" href="/{{producer.id}}/addproducer"><i class="ri-pencil-line"></i></a>
+                                                <a class="iq-bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" onclick="return confirm('Are you sure?')" href="/{{producer.id}}/deleteProducer"><i
+                                                class="ri-delete-bin-line"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{%endblock%}

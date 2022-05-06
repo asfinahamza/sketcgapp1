@@ -1,0 +1,418 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    {%block headers%} {% endblock %}
+
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Play - Admin Panel</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href={% static "web/assets/images/favicon.ico" %} />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href={% static "web/assets/css/bootstrap.min.css" %}>
+    <!--datatable CSS -->
+    <link rel="stylesheet" href={% static "web/assets/css/dataTables.bootstrap4.min.css" %}>
+    <!-- Typography CSS -->
+    <link rel="stylesheet" href={% static "web/assets/css/typography.css" %}>
+    <!-- Style CSS -->
+    <link rel="stylesheet" href={% static "web/assets/css/style.css" %}>
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href={% static "web/assets/css/responsive.css" %}>
+
+</head>
+
+<body>
+    <!-- loader Start -->
+    <!-- <div id="loading">
+        <div id="loading-center">
+        </div>
+    </div> -->
+    <!-- loader END -->
+    <!-- Wrapper Start -->
+    <div class="wrapper">
+        <!-- Sidebar-->
+        <div class="iq-sidebar">
+            <div class="iq-sidebar-logo d-flex justify-content-between">
+                <a href="/" class="header-logo">
+                    <img src={% static "web/assets/images/logo.png" %} class="img-fluid rounded-normal" alt="">
+                    <!-- <div class="logo-title">
+                        <span class="text-primary text-uppercase">Play</span>
+                    </div> -->
+                </a>
+                <div class="iq-menu-bt-sidebar">
+                    <div class="iq-menu-bt align-self-center">
+                        <div class="wrapper-menu">
+                            <div class="main-circle"><i class="las la-bars"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="sidebar-scrollbar">
+                <nav class="iq-sidebar-menu">
+                    <ul id="iq-sidebar-toggle" class="iq-menu">
+
+                        <li class="menu-divider mg-y-20-force">
+                            <hr>
+                        </li>
+                        <li class="mg-20-force menu-elements" style="font-size: 12px; margin-left:30px;">Dashboard</li>
+
+                        <li><a href="/dashboard" class="iq-waves-effect"><i class="las la-home iq-arrow-left"></i><span>Dashboard</span></a></li>
+
+                        <li>
+                            <a href="#notification" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="las la-bell"></i><span>Notifications</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul id="notification" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                <li><a href="#"><i class="las la-mail"></i>Messages</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/userlist" class="iq-waves-effect"><i class="las la-user-friends"></i><span>User</span></a></li>
+                        <li><a href="/0/addlivelink" class="iq-waves-effect"><i class="las la-wifi"></i><span>Live TV</span></a></li>
+
+
+                        <li class="menu-divider mg-y-20-force">
+                            <hr>
+                        </li>
+                        <li class="mg-20-force menu-elements" style="font-size: 12px; margin-left:30px;">Movies</li>
+                        <!-- <li>
+                            <a href="#genre" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="las la-list-ul"></i><span>Genre</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul id="genre" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                <li><a href="/0/addgenre"><i class="las la-user-plus"></i>Add Genre</a></li>
+                                <li><a href="/genrelist"><i class="las la-eye"></i>Genre List</a></li>
+                            </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="#producer" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="las la-user"></i><span>Producer</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul id="producer" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                <li><a href="/0/addproducer"><i class="las la-user-plus"></i>Add Producer</a></li>
+                                <li><a href="/producerlist"><i class="las la-eye"></i>Producer List</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#category" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="las la-border-all"></i><span>Category</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul id="category" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                <li><a href="/0/addmoviecategory"><i class="las la-user-plus"></i>Add Movie Category</a></li>
+                                <li><a href="/moviecategorylist"><i class="las la-eye"></i>Movie Category List</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#subcategory" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="las la-list-ul"></i><span>Sub Category</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul id="subcategory" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                <li><a href="/0/addmoviesubcategory"><i class="las la-user-plus"></i>Add Movie Sub Category</a></li>
+                                <li><a href="/showssubcategorylist"><i class="las la-eye"></i>Movie Sub Category List</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#movie" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="las la-film"></i><span>Movie</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul id="movie" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                <li><a href="/0/addmovie"><i class="las la-user-plus"></i>Add Movie</a></li>
+                                <li><a href="/movielist"><i class="las la-eye"></i>Movie List</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#reels" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="ri-play-circle-line"></i><span>Reels</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul id="reels" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                <li><a href="/0/addreels"><i class="las la-user-plus"></i>Add Reels</a></li>
+                                <li><a href="/reelslist"><i class="las la-eye"></i>Reels List</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="menu-divider mg-y-20-force">
+                            <hr>
+                        </li>
+                        <li class="mg-20-force menu-elements" style="font-size: 12px; margin-left:30px;">Shows</li>
+
+                        <li>
+                            <a href="#category" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="las la-border-all"></i><span>Category</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul id="category" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                <li><a href="/0/addshowscategory"><i class="las la-user-plus"></i>Add Shows Category</a></li>
+                                <li><a href="/showscategorylist"><i class="las la-eye"></i>Shows Category List</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#subcategory" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="las la-list-ul"></i><span>Sub Category</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul id="subcategory" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                <li><a href="/0/addshowssubcategory"><i class="las la-user-plus"></i>Add Shows Sub Category</a></li>
+                                <li><a href="/showssubcategorylist"><i class="las la-eye"></i>Shows Sub Category List</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#show" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i
+                                class="las la-film"></i><span>Show</span><i
+                                class="ri-arrow-right-s-line iq-arrow-right"></i>
+                            </a>
+                            <ul id="show" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                <li><a href="/0/addshow"><i class="las la-user-plus"></i>Add Show</a></li>
+                                <li><a href="/showslist"><i class="las la-eye"></i>Shows List</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="menu-divider mg-y-20-force">
+                            <hr>
+                        </li>
+                        <li class="mg-20-force menu-elements" style="font-size: 12px; margin-left:30px;">Advertisement</li>
+                        <li>
+                            <a href="#videoad" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i
+                                class="las la-video"></i><span>Video Ads</span><i
+                                class="ri-arrow-right-s-line iq-arrow-right"></i>
+                            </a>
+                            <ul id="videoad" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                <li><a href="/addvideoad"><i class="las la-user-plus"></i>Add Videos</a></li>
+                                <li><a href="/videoadlist"><i class="las la-eye"></i>List Videos</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#bannerad" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i
+                                class="las la-images"></i><span>Banner Ads</span><i
+                                class="ri-arrow-right-s-line iq-arrow-right"></i>
+                            </a>
+                            <ul id="bannerad" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                <li><a href="/0/addbanner"><i class="las la-user-plus"></i>Add Banner</a></li>
+                                <li><a href="/bannerlist"><i class="las la-eye"></i>List Banner</a></li>
+                            </ul>
+                        </li>
+
+
+
+                        <li class="menu-divider mg-y-20-force">
+                            <hr>
+                        </li>
+                        <li class="mg-20-force menu-elements" style="font-size: 12px; margin-left:30px;">Terms and Condition</li>
+
+                        <li>
+                            <a href="#terms" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i
+                                class="las la-book"></i><span>Terms & Policy</span><i
+                                class="ri-arrow-right-s-line iq-arrow-right"></i>
+                            </a>
+                            <ul id="terms" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                <li><a href="/addterms"><i class="las la-user-plus"></i>Add Terms</a></li>
+                                <li><a href="/addpolicy"><i class="las la-eye"></i>Add Policy</a></li>
+                            </ul>
+                        </li>
+
+                        <br><br>
+
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- TOP Nav Bar -->
+        <div class="iq-top-navbar">
+            <div class="iq-navbar-custom">
+                <nav class="navbar navbar-expand-lg navbar-light p-0">
+                    <div class="iq-menu-bt d-flex align-items-center">
+                        <div class="wrapper-menu">
+                            <div class="main-circle"><i class="las la-bars"></i></div>
+                        </div>
+                        <div class="iq-navbar-logo d-flex justify-content-between">
+                            <a href="/" class="header-logo">
+                                <img src="assets/images/logo.png" class="img-fluid rounded-normal" alt="">
+                                <div class="logo-title">
+                                    <span class="text-primary text-uppercase">Play</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="iq-search-bar ml-auto">
+                        <form action="#" class="searchbox">
+                            <input type="text" class="text search-input" placeholder="Search Here...">
+                            <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                        </form>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
+                  <i class="ri-menu-3-line"></i>
+               </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto navbar-list">
+                            <li class="nav-item nav-icon search-content">
+                                <a href="#" class="search-toggle iq-waves-effect text-gray rounded">
+                                    <i class="ri-search-line"></i>
+                                </a>
+                                <form action="#" class="search-box p-0">
+                                    <input type="text" class="text search-input" placeholder="Type here to search...">
+                                    <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                                </form>
+                            </li>
+                            <li class="nav-item nav-icon">
+                                <a href="#" class="search-toggle iq-waves-effect text-gray rounded">
+                                    <i class="ri-notification-2-line"></i>
+                                    <span class="bg-primary dots"></span>
+                                </a>
+                                <div class="iq-sub-dropdown">
+                                    <div class="iq-card shadow-none m-0">
+                                        <div class="iq-card-body p-0">
+                                            <div class="bg-primary p-3">
+                                                <h5 class="mb-0 text-white">All Notifications<small class="badge  badge-light float-right pt-1">4</small></h5>
+                                            </div>
+                                            <a href="#" class="iq-sub-card">
+                                                <div class="media align-items-center">
+                                                    <div class="">
+                                                        <img class="avatar-40 rounded" src={% static "web/assets/images/user/01.jpg" %} alt="">
+                                                    </div>
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-0 ">Emma Watson Barry</h6>
+                                                        <small class="float-right font-size-12">Just Now</small>
+                                                        <p class="mb-0">95 MB</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item nav-icon dropdown">
+                                <a href="#" class="search-toggle iq-waves-effect text-gray rounded">
+                                    <i class="ri-mail-line"></i>
+                                    <span class="bg-primary dots"></span>
+                                </a>
+                                <div class="iq-sub-dropdown">
+                                    <div class="iq-card shadow-none m-0">
+                                        <div class="iq-card-body p-0 ">
+                                            <div class="bg-primary p-3">
+                                                <h5 class="mb-0 text-white">All Messages<small class="badge  badge-light float-right pt-1">5</small></h5>
+                                            </div>
+                                            <a href="#" class="iq-sub-card">
+                                                <div class="media align-items-center">
+                                                    <div class="">
+                                                        <img class="avatar-40 rounded" src={% static "web/assets/images/user/01.jpg" %} alt="">
+                                                    </div>
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-0 ">Barry Emma Watson</h6>
+                                                        <small class="float-left font-size-12">13 Jun</small>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="line-height pt-3">
+                                <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
+                                    <img src={% static "web/assets/images/user/1.jpg" %} class="img-fluid rounded-circle mr-3" alt="user">
+                                </a>
+                                <div class="iq-sub-dropdown iq-user-dropdown">
+                                    <div class="iq-card shadow-none m-0">
+                                        <div class="iq-card-body p-0 ">
+                                            <div class="bg-primary p-3">
+                                                <h5 class="mb-0 text-white line-height">Hello Hifsul</h5>
+                                                <span class="text-white font-size-12">Available</span>
+                                            </div>
+                                            <a href="#" class="iq-sub-card iq-bg-primary-hover">
+                                                <div class="media align-items-center">
+                                                    <div class="rounded iq-card-icon iq-bg-primary">
+                                                        <i class="ri-file-user-line"></i>
+                                                    </div>
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-0 ">My Profile</h6>
+                                                        <p class="mb-0 font-size-12">View personal profile details.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                            <a href="#" class="iq-sub-card iq-bg-primary-hover">
+                                                <div class="media align-items-center">
+                                                    <div class="rounded iq-card-icon iq-bg-primary">
+                                                        <i class="ri-account-box-line"></i>
+                                                    </div>
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-0 ">Account settings</h6>
+                                                        <p class="mb-0 font-size-12">Manage your account parameters.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="iq-sub-card iq-bg-primary-hover">
+                                                <div class="media align-items-center">
+                                                    <div class="rounded iq-card-icon iq-bg-primary">
+                                                        <i class="ri-lock-line"></i>
+                                                    </div>
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-0 ">Privacy Settings</h6>
+                                                        <p class="mb-0 font-size-12">Control your privacy parameters.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <div class="d-inline-block w-100 text-center p-3">
+                                                <a class="bg-primary iq-sign-btn" href="/logout" role="button">Sign out<i class="ri-login-box-line ml-2"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        {% block body %} {% endblock %}
+        <!-- Footer -->
+        <footer class="iq-footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                            <li class="list-inline-item"><a href="#">Terms of Use</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6 text-right">
+                        Copyright 2021 <a href="#">Sketch App</a> All Rights Reserved.
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Footer END -->
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src={% static "web/assets/js/jquery.min.js" %}></script>
+        <script src={% static "web/assets/js/popper.min.js" %}></script>
+        <script src={% static "web/assets/js/bootstrap.min.js" %}></script>
+        <script src={% static "web/assets/js/jquery.dataTables.min.js" %}></script>
+        <script src={% static "web/assets/js/dataTables.bootstrap4.min.js" %}></script>
+        <!-- Appear JavaScript -->
+        <script src={% static "web/assets/js/jquery.appear.js" %}></script>
+        <!-- Countdown JavaScript -->
+        <script src={% static "web/assets/js/countdown.min.js" %}></script>
+        <!-- Select2 JavaScript -->
+        <script src={% static "web/assets/js/select2.min.js" %}></script>
+        <!-- Counterup JavaScript -->
+        <script src={% static "web/assets/js/waypoints.min.js" %}></script>
+        <script src={% static "web/assets/js/jquery.counterup.min.js" %}></script>
+        <!-- Wow JavaScript -->
+        <script src={% static "web/assets/js/wow.min.js" %}></script>
+        <!-- Slick JavaScript -->
+        <script src={% static "web/assets/js/slick.min.js" %}></script>
+        <!-- Owl Carousel JavaScript -->
+        <script src={% static "web/assets/js/owl.carousel.min.js" %}></script>
+        <!-- Magnific Popup JavaScript -->
+        <script src={% static "web/assets/js/jquery.magnific-popup.min.js" %}></script>
+        <!-- Smooth Scrollbar JavaScript -->
+        <script src={% static "web/assets/js/smooth-scrollbar.js" %}></script>
+        <!-- apex Custom JavaScript -->
+        <script src={% static "web/assets/js/apexcharts.js" %}></script>
+        <!-- Chart Custom JavaScript -->
+        <script src={% static "web/assets/js/chart-custom.js" %}></script>
+        <!-- Custom JavaScript -->
+        <script src={% static "web/assets/js/custom.js" %}></script>
+        <script src={% static "web/assets/js/rtl.js" %}></script>
+</body>
+
+</html>
+
+{%block script%} {% endblock %}
+
+</html>

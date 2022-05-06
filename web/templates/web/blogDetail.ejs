@@ -1,0 +1,74 @@
+{%extends 'web/hbase.ejs'%} {%load static%} {%block headers%} {%endblock%} {%block body%}
+
+<!-- Header End -->
+<div class="iq-breadcrumb-one  iq-bg-over iq-over-dark-50" style="background-image: url(/static/web/play/images/about-us/01.jpg);">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <nav aria-label="breadcrumb" class="text-center iq-breadcrumb-two">
+                    <h2 class="title">The Most Anticipated Movies</h2>
+                    <ol class="breadcrumb main-bg">
+                        <li class="breadcrumb-item"><a href="">Home</a></li>
+                        <li class="breadcrumb-item"><a href="">Dramas</a></li>
+                        <li class="breadcrumb-item active">The Most Anticipated Movies</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main container -->
+<main id="main" class="site-main">
+    <div class="container">
+
+        <div class="col-md-12">
+            <p id="nTitle">
+
+            </p>
+            <span id="nImage"></span>
+            <p id="nDate"></p>
+            <p id="nContent"></p>
+
+
+
+
+        </div>
+
+    </div>
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://momentjs.com/downloads/moment.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        var pathID = window.location.pathname.split('/')[1];
+        console.log("my id " + pathID);
+        var pathUrl = '/' + pathID + '/BlogDetailAPIView';
+
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: pathUrl,
+            success: function(data) {
+                console.log(data)
+                var title = data.data.name;
+                var banner = data.data.banner;
+                var date = data.data.date;
+                var content = data.data.content;
+                var imageBox = "<img  src=" + banner + " >";
+                console.log(content);
+                document.getElementById("nTitle").innerHTML = title;
+                document.getElementById("nImage").innerHTML = imageBox;
+                document.getElementById("nContent").innerHTML = content;
+                document.getElementById("nDate").innerHTML = date;
+            }
+        });
+    });
+</script>
+
+
+{%endblock%}

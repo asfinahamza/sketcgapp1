@@ -1,0 +1,67 @@
+{%extends 'web/dbase.ejs'%} {%load static%} {%block headers%} {%endblock%} {%block body%}
+<!-- Page Content  -->
+<div id="content-page" class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="iq-card">
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Movie Lists</h4>
+                        </div>
+                        <div class="iq-card-header-toolbar d-flex align-items-center">
+                            <a href="/0/addmovie" class="btn btn-primary">Add movie</a>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
+                        <div class="table-view">
+                            <table class="data-tables table movie_table " style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Movie</th>
+                                        <th>Title</th>
+                                        <th>Category</th>
+                                        <th>Release Year</th>
+                                        <th style="width: 20%;">Description</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for movie in movies %}
+                                    <tr>
+                                        <td>
+                                            <div class="media align-items-center">
+                                                <div class="iq-movie">
+                                                    <a href="javascript:void(0);"><img src="{{movie.image.url}}" class="img-border-radius avatar-40 img-fluid" alt=""></a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{{movie.title}}</td>
+                                        <td>{{movie.category}}</td>
+                                        <td>{{movie.date}}</td>
+                                        <td>
+                                            <p>{{movie.content}}</p>
+                                        </td>
+                                        <td>
+                                            <div class="flex align-items-center list-user-action">
+                                                <!-- <a class="iq-bg-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="View" href="#"><i class="lar la-eye"></i></a> -->
+                                                <a class="iq-bg-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" href="/{{movie.id}}/addmovie"><i class="ri-pencil-line"></i></a>
+                                                <a class="iq-bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" onclick="return confirm('Are you sure?')" href="/{{movie.id}}/deleteMovie"><i
+                                                class="ri-delete-bin-line"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{%endblock%}
